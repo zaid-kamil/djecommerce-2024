@@ -1,6 +1,46 @@
 {% extends 'layout/base_fullscreen.html' %}
 
 {% block content %}
-    <h1>Customer Login</h1>
+<style>
+    .container {
+        margin-top: 100px;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <form method="post" class="card">
+                {% csrf_token %}
+                <div class="card-header">
+                    <h5 class="card-title">Login</h5>   
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Username</label>
+                        <input type="text" class="form-control form-control-sm" name="username" id="username" aria-describedby="userhelpId"
+                            placeholder="username" />
+                        <small id="userhelpId" class="form-text text-muted"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control form-control-sm" name="password" id="password" aria-describedby="passwordhelpId"
+                            placeholder="password" />
+                        <small id="passwordhelpId" class="form-text text-muted"></small>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                        <a href="{% url 'register' %}" class="btn btn-link btn-sm">Register</a>
+                    </div> 
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}
-    

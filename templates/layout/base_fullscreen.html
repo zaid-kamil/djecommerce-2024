@@ -18,15 +18,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
         integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <style>
+        .alert-error{
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <!-- place navbar here -->
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            <strong>{{message}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+
     </header>
     <main>
-        {% block content %} {% endblock content %}  
+        {% block content %} {% endblock content %}
     </main>
     <footer>
         <!-- place footer here -->
