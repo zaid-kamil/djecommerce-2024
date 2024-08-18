@@ -24,9 +24,18 @@
 <body>
     <header>
         {% include 'components/header.html' %}
+                
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            <strong>{{message}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+
     </header>
     <main>
-        {% block content %} {% endblock content %}  
+        {% block content %} {% endblock content %}
     </main>
     <footer>
         <!-- place footer here -->
