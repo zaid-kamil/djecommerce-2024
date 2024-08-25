@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 from django.contrib import messages
+from django.utils.text import slugify
 
 def category_list(request):
     return render(
@@ -27,16 +28,65 @@ def category_edit(request, slug):
 def category_delete(request, slug):
     pass
 def product_list(request):
-    pass
+    return render(
+        request, 'products/list.html',
+        context={'products': Product.objects.all()}
+    )
+
 def product_create(request):
-    pass
+    form = ProductForm()
+    if request.method =='POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save(commit=False)   # save to memory, not in database
+            product.seller = request.user
+            product.slug = slugify(product.title)
+            product.save()                      # save to database
+            messages.success(request, 'Product created successfully')
+            return redirect('product_detail', slug=product.slug)
+        else:
+            messages.error(request, 'Error creating product')
+    return render(
+        request,'products/add.html',
+        context={'form': form}
+    )
 def product_edit(request,slug):
-    pass
+    product = get_object_or_404(Product, slug=slug)
+    form = ProductForm(instance=product)
+    if request.method =='POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            product = form.save(commit=False)       # save to memory, not in database
+            product.slug = slugify(product.title)
+            product.save()                          # save to database
+            messages.success(request, 'Product updated successfully')
+            return redirect('product_detail', slug=product.slug)
+        else:
+            messages.error(request, 'Error updating product')
+    return render(
+        request,'products/edit.html',
+        context={'form': form}
+    )
 def product_delete(request,slug):
-    pass
+    product = get_object_or_404(Product, slug=slug)
+    product.delete()
+    messages.success(request, 'Product deleted successfully')
+    return redirect('product_list')
+
 def product_detail(request,slug):
-    pass
+    product = get_object_or_404(Product, slug=slug)
+    return render(
+        request, 'products/detail.html',
+        context={'product': product}
+    )
 def category_product_list(request,category_slug):
-    pass
+    category = get_object_or_404(Category, slug=category_slug)
+    return render(
+        request, 'products/category_wise.html',
+        context={
+            'category': category,
+            'products' : Product.objects.filter(category=category)
+        }
+    )
 def search(request):
     pass
