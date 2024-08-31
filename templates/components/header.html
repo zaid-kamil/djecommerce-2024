@@ -11,21 +11,20 @@
                     <a class="nav-link active" href="#" aria-current="page">Home <span
                             class="visually-hidden">(current)</span></a>
                 </li>
-                
+                {% comment %}
                 {% if user.is_authenticated and user.groups.all.0.name == 'seller' %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'category_list' %}">Categories</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_create' %}">Add Product</a>
+                </li>
                 {% endif %}
-                    
-                
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="#">Action 1</a>
-                        <a class="dropdown-item" href="#">Action 2</a>
-                    </div>
+                {% endcomment %}
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_list' %}">Products</a>
                 </li>
             </ul>
             <form class="d-flex my-2 my-lg-0">
@@ -48,11 +47,19 @@
                     </a>
                 </li>
                 {% else %}
+                {% if user.is_authenticated and user.groups.all.0.name == 'seller' %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#" title="dashboard">
+                    <a class="nav-link" href="{% url 'seller_dashboard' %}" title="dashboard">
                         <i class="fas fa-user"></i>
                     </a>
                 </li>
+                {% elif user.is_authenticated and user.groups.all.0.name == 'customer' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}" title="dashboard">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </li>
+                {%endif %}
                 {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}" title="logout">
