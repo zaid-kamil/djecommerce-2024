@@ -3,7 +3,7 @@
         <div class="about-product text-center mt-2">
             <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none">
                 <h4>{{product.title}}</h4>
-                <img src="{{product.image.url}}" class="img-fluid">
+                <img src="{{product.image.url}}" class="img-fluid" style="height: 250px; object-fit: cover;">
                 <div>
                     <h4>{{product.brand}}</h4>
                     <h6 class="mt-0 text-black-50">{{product.title}}</h6>
@@ -38,5 +38,4 @@
         </div>
         {% endif %}
     </div>
-</div>
 </div>
