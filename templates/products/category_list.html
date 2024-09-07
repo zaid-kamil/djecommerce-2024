@@ -19,7 +19,9 @@
                 <img src="{{item.logo.url}}" 
                 alt="logo" width="100" height="100"
                 class="rouded-5">
-                {{ item.name }}
+                <a href="{% url 'product_list_by_category' item.slug %}">
+                    {{ item.name }}
+                </a>
             {% empty %}
                 <h4>No category available</h4>
             {% endfor %}
