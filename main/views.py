@@ -25,12 +25,11 @@ def login_view(request):
             messages.error(request, '!Contact your administrator')
             return redirect('login')
         groups = user.groups.all()       # Get the first group name
-        if len(groups)==0 and groups[0].name != 'customer':
+        if len(groups)==0 or groups[0].name != 'customer':
             messages.error(request, 'You are not authorized to login!')
             return redirect('login')
-        if groups[0].name == 'customer':
-            login(request, user)
-            return redirect('dashboard')
+        login(request, user)
+        return redirect('dashboard')
     return render(request, 'accounts/login_c.html')
 
 def register_view(request):
@@ -101,15 +100,11 @@ def slogin_view(request):
             return redirect('seller_login')
         groups = user.groups.all() 
         print(groups)      # Get the first group name
-        if len(groups)==0 and groups[0].name != 'seller':
+        if len(groups)==0 or groups[0].name != 'seller':
             messages.error(request, 'You are not authorized to login!')
-            return redirect('seller_login')
-        if groups[0].name == 'seller':
-            login(request, user)
-            return redirect('seller_dashboard')
-        else:
-            messages.error(request, 'You are not authorized to login!')
-            return redirect('seller_login')
+            return redirect('seller_login')    
+        login(request, user)
+        return redirect('seller_dashboard')
     return render(request, 'accounts/login_s.html')
 
 def sregister_view(request):

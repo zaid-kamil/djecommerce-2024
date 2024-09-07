@@ -24,7 +24,7 @@
 </div>
 <div class="container-fluid py-5">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 text-center">
             <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
         </div>
         <div class="col-md-8">
@@ -51,7 +51,15 @@
                 <i class="fas fa-plus"></i> Add Image
             </a>
             {% else %}
-
+            <!-- action as customer -->
+            <div class="d-flex justify-content-start mt-2 gap-2">
+                <a href="{% url 'wishlist_add' product.slug %}" class="btn btn-secondary">
+                    <i class="fas fa-heart"></i> Wishlist
+                </a>
+                <a href="#" class="btn btn-success">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </a>
+            </div>
             {% endif %}
         </div>
     </div>
