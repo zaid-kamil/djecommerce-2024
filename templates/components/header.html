@@ -37,7 +37,7 @@
             <ul class="navbar-nav px-2">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link px-2" href="#" title="cart">
+                    <a class="nav-link px-2" href="{% url 'show_cart' %}" title="cart">
                         <i class="fas fa-shopping-cart text-warning"></i>
                         {% cart_item_count as item_count %}
                         {% if item_count %}

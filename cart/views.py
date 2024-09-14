@@ -6,7 +6,11 @@ from django.contrib import messages
 
 @login_required
 def show_cart(request):
-    return render(request, 'cart/show.html')
+    cart = Cart.objects.get(user=request.user)
+    cart_items = cart.cartitem_set.all()
+    return render(request, 'cart/show.html', {
+        'cart_items': cart_items
+    })
 
 def success(request):
     return render(request, 'cart/success.html')

@@ -2,7 +2,7 @@
     <div class="card p-3 bg-white">
         <div class="about-product text-center mt-2">
             <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none">
-                <h4>{{product.title}}</h4>
+                <h4>{{product.title|truncatewords:3}}</h4>
                 <img src="{{product.image.url}}" class="img-fluid" style="height: 250px; object-fit: cover;">
                 <div>
                     <h4>{{product.brand}}</h4>
