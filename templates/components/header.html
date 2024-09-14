@@ -39,8 +39,11 @@
                 <li class="nav-item">
                     <a class="nav-link px-2" href="#" title="cart">
                         <i class="fas fa-shopping-cart text-warning"></i>
-
-                        <span class="badge bg-danger">{{ cart_item_count }}</span>
+                        {% cart_item_count as item_count %}
+                        {% if item_count %}
+                        <span class="badge bg-danger">{{ item_count }}</span>
+                        {% endif %}
+                            
 
                     </a>
                 </li>
