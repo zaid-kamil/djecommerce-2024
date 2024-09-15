@@ -34,6 +34,7 @@
                                     <th>Price</th>
                                     <th>Qty</th>
                                     <th>Total</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
@@ -62,7 +63,11 @@
                                             {{item.total_price}}
                                         </div>
                                     </td>
-
+                                    <td>
+                                        <a class="btn btn-danger" href="{% url 'remove_product' item.product.slug %}">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 {% empty %}
                                 <tr class="table-primary">
@@ -73,10 +78,9 @@
                                 {% endfor %}
                             </tbody>
                             <tfoot>
-                                <tr class="table-light">
-                                    <td>Total</td>
-                                    <td></td>
-                                    <td></td>
+                                <tr class="table-light fw-bolder">
+                                    <td colspan="5">Total</td>
+                                    <td >{{total_price}}</td>
                                 </tr>
                             </tfoot>
                         </table>

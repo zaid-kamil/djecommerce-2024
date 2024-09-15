@@ -8,8 +8,14 @@ from django.contrib import messages
 def show_cart(request):
     cart = Cart.objects.get(user=request.user)
     cart_items = cart.cartitem_set.all()
+    # total price
+    total_price = 0
+    for item in cart_items:
+        total_price += item.product.price * item.quantity
+
     return render(request, 'cart/show.html', {
-        'cart_items': cart_items
+        'cart_items': cart_items,
+        'total_price': total_price,
     })
 
 def success(request):
@@ -43,14 +49,33 @@ def add_product(request, product):
 
 def remove_product(request, product):
     referrer = request.META.get('HTTP_REFERER')
+    cart = Cart.objects.get(user=request.user)
+    product = get_object_or_404(Product, slug=product)
+    cart_item = CartItem.objects.get(cart=cart, product=product)
+    cart_item.delete()
+    messages.success(request, 'Product removed from cart')
     return redirect(referrer)
 
 def increase_qty(request, product):
     referrer = request.META.get('HTTP_REFERER')
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    product = get_object_or_404(Product, slug=product)
+    # if it is in cart items
+    cart_item = CartItem.objects.get(cart=cart, product=product)
+    cart_item.quantity += 1
+    cart_item.save()
     return redirect(referrer)
 
 def decrease_qty(request, product):
     referrer = request.META.get('HTTP_REFERER')
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    product = get_object_or_404(Product, slug=product)
+    # if it is in cart items
+    cart_item = CartItem.objects.get(cart=cart, product=product)
+    cart_item.quantity -= 1
+    cart_item.save()
     return redirect(referrer)
 
 def checkout(request):
