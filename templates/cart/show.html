@@ -89,7 +89,19 @@
             </div>
         </div>
         <div class="col-md-3">
-            <!-- LATER -->
+            <div class="card">
+                <div class="card-body">
+                    <p class="display-3">
+                        {{total_price}} INR
+                        <div class="">No Charges on delivery</div>
+                    </p>
+                    <div class="d-grid">
+                        <a class="btn btn-lg btn-block btn-success" href="{% url 'checkout' %}">
+                            Checkout
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

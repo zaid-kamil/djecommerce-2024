@@ -8,6 +8,7 @@ urlpatterns = [
     path('inc/<slug:product>', views.increase_qty, name='increase_qty'),
     path('dec/<slug:product>', views.decrease_qty, name='decrease_qty'),
     path('checkout', views.checkout, name='checkout'),
+    path('payment/callback', views.payment_callback, name='payment_callback'),
     path('success/', views.success, name='success'),
     path('failure/', views.failure, name='failed'),
     path('orders', views.orders, name='orders'),
